@@ -1,0 +1,88 @@
+
+#include <iostream>
+using namespace std;
+
+class Student {
+private:
+    int rollNo;
+    string name;
+    float marks;
+
+    static int count;
+
+public:
+    // Parameterized constructor
+    Student(int r, string n, float m) {
+        rollNo = r;
+        name = n;
+        marks = m;
+        count++;
+    }
+
+    // Overloaded display functions
+    void display() {
+        cout << "Name: " << name << endl;
+        cout << "Roll No: " << rollNo << endl;
+        cout << "Marks: " << marks << endl;
+    }
+
+    void display(string msg) {
+        cout << msg << ": " << name
+             << " scored " << marks << " marks." << endl;
+    }
+
+    // Static member function
+    static void showCount() {
+        cout << "Total Students: " << count << endl;
+    }
+
+    // Friend function declaration
+    friend void showDetails(Student s);
+
+    // Overloading > operator
+    bool operator>(Student s) {
+        return marks > s.marks;
+    }
+};
+
+// Definition of static member
+int Student::count = 0;
+
+// Friend function definition
+void showDetails(Student s) {
+    cout << "\nFriend Function Details:" << endl;
+    cout << "Name: " << s.name << endl;
+    cout << "Marks: " << s.marks << endl;
+}
+
+int main() {
+    Student s1(101, "Rahul", 85.5);
+    Student s2(102, "Priya", 92.0);
+
+    cout << "Student 1 Details:" << endl;
+    s1.display();
+
+    cout << "\nStudent 2 Details:" << endl;
+    s2.display();
+
+    // Function overloading
+    cout << "\nOverloaded Function:" << endl;
+    s1.display("Student Information");
+
+    // Friend function
+    showDetails(s1);
+
+    // Operator overloading
+    cout << "\nComparison:" << endl;
+
+    if (s1 > s2)
+        cout << "Rahul has scored higher marks.";
+    else
+        cout << "Priya has scored higher marks.";
+
+    // Static member function
+    cout << "\n";
+    Student::showCount();
+
+    return 0;
+}
